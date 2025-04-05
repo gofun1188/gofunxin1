@@ -135,6 +135,87 @@
             max-height: 40px;
         }
         
+
+        .social-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .social-popup.active {
+            display: flex;
+        }
+        
+        .social-popup-content {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            width: 80%;
+            max-width: 350px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .social-popup-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .social-icon img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .social-icon:hover img {
+            transform: scale(1.1);
+        }
+        
+        .social-icon span {
+            font-size: 14px;
+        }
+        
+        .close-popup {
+            margin-top: 10px;
+            padding: 8px 20px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .close-popup:hover {
+            background-color: #d32f2f;
+        }
+        
         @media (max-width: 768px) {
             .content-wrapper {
                 padding-top: 80px;
@@ -151,6 +232,20 @@
             .testimonial-image {
                 max-width: 90%;
             }
+            
+            .social-popup-content {
+                width: 90%;
+                padding: 20px;
+            }
+            
+            .social-icon img {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .social-icon span {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -161,28 +256,77 @@
         <img src="images/1.png" alt="排序1" class="section-image" style="margin-bottom: 5px;">
         
         <div class="cta-buttons" style="margin-top: 0;">
-            <a href="https://www.google.com" class="cta-button">
+            <a href="javascript:void(0)" class="cta-button" id="socialButton">
                 <img src="images/3.png" alt="按鈕2">
             </a>
-            <a href="https://www.google.com" class="cta-button">
+            <a href="https://97y.me/9jXKr" class="cta-button">
                 <img src="images/2.png" alt="按鈕1">
             </a>
         </div>
         
         <div class="testimonial-section">
-          <div class="video-container vertical-video">
-              <iframe 
-                  src="https://www.youtube.com/embed/EcyiWeDyWCM?autoplay=1&mute=1"
-                  title="YouTube 影片" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                  allowfullscreen>
-              </iframe>
-          </div>
-      </div>
+            <div class="video-container vertical-video">
+                <iframe 
+                    src="https://www.youtube.com/embed/EcyiWeDyWCM?autoplay=1&mute=1"
+                    title="YouTube" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
             
             <img src="images/4.jpg" alt="用戶反饋" class="testimonial-image">
         </div>
     </div>
+    
+
+    <div class="social-popup" id="socialPopup">
+        <div class="social-popup-content">
+            <div class="social-popup-title">聯繫萬萬</div>
+            <div class="social-icons">
+                <a href="https://t.me/xin_165" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+                    <span>Telegram</span>
+                </a>
+                <a href="https://www.tiktok.com/@ww97_167?_t=ZS-8vDoS5YCXxJ&_r=1" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok">
+                    <span>TikTok</span>
+                </a>
+                <a href="https://www.instagram.com/ww97_167" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">
+                    <span>Instagram</span>
+                </a>
+                <a href="https://line.me/ti/p/UKZlvec-ib" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" alt="LINE">
+                    <span>LINE</span>
+                </a>
+            </div>
+            <button class="close-popup" id="closePopup">關閉</button>
+        </div>
+    </div>
+    
+    <script>
+
+        const socialButton = document.getElementById('socialButton');
+        const socialPopup = document.getElementById('socialPopup');
+        const closePopup = document.getElementById('closePopup');
+        
+
+        socialButton.addEventListener('click', function() {
+            socialPopup.classList.add('active');
+        });
+        
+
+        closePopup.addEventListener('click', function() {
+            socialPopup.classList.remove('active');
+        });
+        
+
+        socialPopup.addEventListener('click', function(event) {
+            if (event.target === socialPopup) {
+                socialPopup.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
